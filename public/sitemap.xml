@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.example.com/</loc></url>
+  <url><loc>https://www.example.com/services</loc></url>
+  <url><loc>https://www.example.com/services/dynamics-365</loc></url>
+  <url><loc>https://www.example.com/services/power-platform</loc></url>
+  <url><loc>https://www.example.com/services/azure-cloud</loc></url>
+  <url><loc>https://www.example.com/services/ai-copilot</loc></url>
+  <url><loc>https://www.example.com/services/data-analytics</loc></url>
+  <url><loc>https://www.example.com/services/enterprise-integration</loc></url>
+  <url><loc>https://www.example.com/industries</loc></url>
+  <url><loc>https://www.example.com/success-stories</loc></url>
+  <url><loc>https://www.example.com/insights</loc></url>
+  <url><loc>https://www.example.com/about</loc></url>
+  <url><loc>https://www.example.com/contact</loc></url>
+  <url><loc>https://www.example.com/privacy</loc></url>
+  <url><loc>https://www.example.com/cookies</loc></url>
+</urlset>
