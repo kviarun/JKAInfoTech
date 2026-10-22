@@ -1,5 +1,5 @@
 import {
-  Activity, ArrowUpRight, Boxes, BrainCircuit, Cloud, Database, Factory,
+  Activity, AppWindow, ArrowUpRight, Boxes, Coffee, BrainCircuit, Cloud, Database, Factory,
   Headset, Layers3, LineChart, Link2, PackageCheck, ShoppingBag, Workflow,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -39,6 +39,24 @@ export const services: Service[] = [
     ],
   },
   {
+    title: 'Microsoft 365 and Modern Workplace',
+    shortTitle: 'Microsoft 365',
+    path: '/services/microsoft-365',
+    icon: AppWindow,
+    description: 'Secure collaboration, productivity and a modern digital workplace built on Microsoft 365.',
+    intro: 'Help people communicate, collaborate and find information more easily with a Microsoft 365 environment that is secure, well governed and designed for adoption.',
+    capabilities: ['Microsoft 365 tenant strategy and migration', 'Teams, SharePoint and OneDrive design', 'Intranet and employee experience', 'Security, compliance and identity', 'Microsoft 365 Copilot readiness', 'Change management and user adoption'],
+    technologies: ['Microsoft Teams', 'SharePoint Online', 'OneDrive', 'Exchange Online', 'Microsoft Intune', 'Microsoft Purview'],
+    useCases: ['Consolidating collaboration tools onto Microsoft 365', 'Creating a connected intranet and knowledge hub', 'Preparing content and permissions for Copilot'],
+    challenges: ['Sprawling Teams and SharePoint sites with unclear ownership', 'Inconsistent security and data protection controls', 'Low adoption of the tools already licensed'],
+    approach: ['Assess collaboration needs, content and risk', 'Design information architecture and governance', 'Migrate, configure and secure the workplace', 'Drive adoption and continuously improve'],
+    faqs: [
+      { question: 'Can you migrate from another email or collaboration platform?', answer: 'Yes. Migration planning covers mailboxes, files, identities and cut-over so that disruption to users is kept to a minimum.' },
+      { question: 'How do you prepare for Microsoft 365 Copilot?', answer: 'Readiness work reviews permissions, content quality, sensitivity labelling and user scenarios so Copilot works from information people are meant to see.' },
+      { question: 'Do you help with user adoption?', answer: 'Yes. Training, champions and communications can be planned alongside the technical work so new tools are actually used.' },
+    ],
+  },
+  {
     title: 'Power Platform and Automation',
     shortTitle: 'Power Platform',
     path: '/services/power-platform',
@@ -72,6 +90,24 @@ export const services: Service[] = [
       { question: 'Do all applications need to move to cloud?', answer: 'No. Recommendations should account for business value, technical constraints, risk and total cost rather than assume a single destination.' },
       { question: 'Can you work with our existing Azure setup?', answer: 'An initial assessment can identify strengths, risks and practical next steps in the current environment.' },
       { question: 'How are security and reliability addressed?', answer: 'They are considered from discovery and design through deployment, monitoring and operational handover.' },
+    ],
+  },
+  {
+    title: 'Java Enterprise Engineering',
+    shortTitle: 'Java Enterprise',
+    path: '/services/java-enterprise',
+    icon: Coffee,
+    description: 'Build, modernise and run resilient enterprise applications and APIs on Java.',
+    intro: 'Deliver scalable, secure and maintainable enterprise software with modern Java, Spring and cloud-native engineering practices.',
+    capabilities: ['Spring Boot and microservices development', 'Legacy Java EE / Jakarta EE modernisation', 'REST and event-driven API engineering', 'Containers, Kubernetes and Azure hosting', 'CI/CD, testing and DevSecOps', 'Performance tuning and production support'],
+    technologies: ['Java 21', 'Spring Boot', 'Jakarta EE', 'Apache Kafka', 'Docker and Kubernetes', 'Azure Kubernetes Service'],
+    useCases: ['Modernising a monolithic Java EE application', 'Building secure APIs for Dynamics 365 and core systems', 'Moving Java workloads to Azure with confidence'],
+    challenges: ['Ageing application servers and unsupported runtimes', 'Monoliths that are slow and risky to change', 'Limited automated testing and release pipelines'],
+    approach: ['Assess architecture, code quality and risk', 'Define a staged modernisation roadmap', 'Engineer, test and automate delivery', 'Operate, observe and evolve the platform'],
+    faqs: [
+      { question: 'Can you upgrade older Java versions?', answer: 'Yes. Upgrades to a current long-term-support release can be planned in stages with automated tests to protect behaviour.' },
+      { question: 'Do you only build greenfield applications?', answer: 'No. Many engagements modernise or extend existing Java systems, often alongside Microsoft platforms and Azure services.' },
+      { question: 'Can Java services integrate with Dynamics 365?', answer: 'Yes. Java APIs and services commonly integrate with Dynamics 365, Dataverse and Azure messaging using secure, well-monitored patterns.' },
     ],
   },
   {

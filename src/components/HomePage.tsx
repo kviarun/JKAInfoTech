@@ -1,9 +1,10 @@
 import { KeyboardEvent, useRef, useState } from 'react';
 import {
-  ArrowDownRight, ArrowRight, ArrowUpRight, Bot, Check, ChevronRight, Database,
-  GitBranch, Headphones, Layers3, LineChart, Monitor, Network, Workflow,
+  ArrowDownRight, ArrowRight, ArrowUpRight, Bot, Check, ChevronRight,
+  Headphones, Layers3, LineChart, Monitor, Network, Workflow,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { HeroCarousel, OfferingsExplorer, StatsBar } from './Interactive';
 import { industries, insights, services } from '../data/site';
 
 function SectionHeading({ kicker, title, text, light = false }: { kicker: string; title: string; text?: string; light?: boolean }) {
@@ -12,20 +13,6 @@ function SectionHeading({ kicker, title, text, light = false }: { kicker: string
       <span className="eyebrow">{kicker}</span>
       <h2>{title}</h2>
       {text && <p>{text}</p>}
-    </div>
-  );
-}
-
-function HeroArtwork() {
-  return (
-    <div className="hero-art" aria-hidden="true">
-      <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="orbit orbit-three" />
-      <div className="art-core"><span className="core-dot" /><span className="core-ring" /></div>
-      <div className="art-node node-top"><Layers3 size={19} /><span>Business apps</span></div>
-      <div className="art-node node-left"><Database size={18} /><span>Connected data</span></div>
-      <div className="art-node node-right"><Bot size={18} /><span>Intelligent work</span></div>
-      <div className="art-node node-bottom"><GitBranch size={18} /><span>Cloud platform</span></div>
-      <div className="art-caption"><span className="caption-pulse" />Technology, connected</div>
     </div>
   );
 }
@@ -152,35 +139,9 @@ function InteractiveShowcase() {
 export function HomePage() {
   return (
     <>
-      <section className="hero">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="container hero-layout">
-          <div className="hero-content">
-            <span className="eyebrow eyebrow-light"><span className="eyebrow-line" />Technology that transforms business</span>
-            <h1>Make technology work <em>better</em> for business.</h1>
-            <p>We help ambitious organisations modernise applications, connect data, automate processes and make confident progress with Microsoft technologies, cloud and AI.</p>
-            <div className="hero-actions">
-              <Link to="/services" className="button">Explore our services <ArrowRight size={16} /></Link>
-              <Link to="/contact" className="hero-secondary-link">Talk to our experts <ArrowUpRight size={16} /></Link>
-            </div>
-            <div className="hero-note"><span className="hero-note-mark"><Check size={14} /></span>Business-led. Technology-enabled. Built for what’s next.</div>
-          </div>
-          <HeroArtwork />
-        </div>
-        <div className="hero-bottom container">
-          <span>BUILT AROUND YOUR BUSINESS</span><span className="hero-bottom-line" /><span>UK · INTERNATIONAL</span>
-        </div>
-      </section>
-
-      <section className="capability-strip" aria-label="Technology capabilities">
-        <div className="container capability-strip-inner">
-          <span className="capability-label">Connected capabilities</span>
-          <div><Layers3 size={17} />Microsoft business apps</div>
-          <div><Workflow size={17} />Cloud & integration</div>
-          <div><Database size={17} />Data & analytics</div>
-          <div><Bot size={17} />AI & automation</div>
-        </div>
-      </section>
+      <HeroCarousel />
+      <StatsBar />
+      <OfferingsExplorer />
 
       <section className="section services-section">
         <div className="container">
