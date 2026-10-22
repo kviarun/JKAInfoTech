@@ -4,6 +4,7 @@ import {
   ArrowRight, ArrowUpRight, Check, ChevronDown, CircleHelp, Clock3, Compass, MapPin,
   Layers3, LockKeyhole, Mail, ShieldCheck, Sparkles, Target,
 } from 'lucide-react';
+import { OfferingDeepDive } from '../components/Interactive';
 import { industries, insights, services, type Service } from '../data/site';
 
 export function PageHero({ kicker, title, text, tone = 'light', children }: { kicker: string; title: string; text: string; tone?: 'light' | 'dark'; children?: React.ReactNode }) {
@@ -53,6 +54,7 @@ export function ServicePage({ service }: { service: Service }) {
       <div><PageIntro kicker="Where we can help" title="Capabilities for the whole journey." text="From early decisions through delivery and ongoing improvement, focus on what makes the difference for your teams." /><div className="capability-list">{service.capabilities.map((capability, index) => <div key={capability}><span>0{index + 1}</span><h3>{capability}</h3><Check size={15} /></div>)}</div></div>
       <aside className="technology-panel"><span className="eyebrow">Relevant technologies</span><h3>Designed for your environment.</h3><p>Technology selection should reflect your requirements, existing investments and constraints.</p><div className="technology-tags">{service.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div><div className="panel-footnote"><ShieldCheck size={17} />No partner, certification or product status is implied.</div></aside>
     </div></section>
+    <OfferingDeepDive path={service.path} />
     <section className="related-band"><div className="container related-layout"><div><span className="eyebrow">Common use cases</span><h2>Start with the work to be done.</h2></div><div className="use-case-list">{service.useCases.map((useCase, index) => <div key={useCase}><span>0{index + 1}</span><p>{useCase}</p><ArrowUpRight size={16} /></div>)}</div></div></section>
     <section className="section page-content-section"><div className="container approach-layout"><div><PageIntro kicker="How we work" title="Progress, made practical." text="A collaborative approach that provides clarity, keeps delivery grounded and supports your team beyond launch." /><div className="approach-steps">{service.approach.map((step, index) => <div key={step}><span>{['DISCOVER', 'DESIGN', 'DELIVER', 'EVOLVE'][index]}</span><p>{step}</p></div>)}</div></div><div className="why-panel"><div className="why-panel-icon"><Target size={20} /></div><span className="eyebrow">Business first</span><h3>Make the technology serve a clear purpose.</h3><p>Good solutions start with the outcomes, people and operational realities that matter to you—not a predefined product checklist.</p><Link to="/about" className="text-link">About our approach <ArrowRight size={14} /></Link></div></div></section>
     <section className="faq-section"><div className="container faq-layout"><div><span className="eyebrow">Questions & answers</span><h2>A few useful things to know.</h2><p>Every engagement is shaped around your requirements. Here are some common starting questions.</p></div><ServiceFaq service={service} /></div></section>

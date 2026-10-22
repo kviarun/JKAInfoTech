@@ -34,6 +34,13 @@ export function Header() {
   }, []);
 
   return (
+    <>
+    <div className="tcs-utility">
+      <div className="container tcs-utility-inner">
+        <span>Microsoft Dynamics 365 · Azure · Microsoft 365 · Java Enterprise</span>
+        <div><a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a><Link to="/contact">Contact us</Link></div>
+      </div>
+    </div>
     <header className="site-header">
       <div className="header-inner">
         <Brand />
@@ -85,6 +92,7 @@ export function Header() {
       </div>
       {activeMenu && <button className="menu-scrim" aria-label="Close menu" onClick={() => setActiveMenu(null)} />}
     </header>
+    </>
   );
 }
 
