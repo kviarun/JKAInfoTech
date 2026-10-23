@@ -127,7 +127,7 @@ export function Footer({ onCookiePreferences }: { onCookiePreferences: () => voi
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} JKA InfoTech. All rights reserved.</span>
+        <span>© {new Date().getFullYear()} JKA InfoTech. All rights reserved. Company number: 07710462</span>
         <div>
           <Link to="/privacy">Privacy</Link>
           <Link to="/cookies">Cookies</Link>
