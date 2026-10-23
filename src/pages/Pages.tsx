@@ -115,28 +115,50 @@ export function AboutPage() {
 }
 
 export function ContactPage() {
-  const [submitted, setSubmitted] = useState(false);
-  const [message, setMessage] = useState('');
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
-    setMessage('Demo only: your message has not been sent. Connect a form service or API to enable delivery.');
-    event.currentTarget.reset();
+    const form = event.currentTarget;
+    const body = new URLSearchParams();
+    new FormData(form).forEach((value, key) => body.append(key, String(value)));
+    body.set('form-name', 'contact');
+    setSubmissionStatus('sending');
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+
+      if (!response.ok) {
+        setSubmissionStatus('error');
+        return;
+      }
+
+      form.reset();
+      setSubmissionStatus('success');
+    } catch {
+      setSubmissionStatus('error');
+    }
   };
   return <>
-    <PageHero kicker="Contact us" title="Good conversations start with a question." text="Tell us a little about what you’re looking to achieve. We’ll use this information to understand the enquiry—this demo form does not transmit or store your details." />
+    <PageHero kicker="Contact us" title="Good conversations start with a question." text="Tell us a little about what you’re looking to achieve. We’ll use these details to understand your enquiry and respond to you." />
     <section className="contact-section"><div className="container contact-layout">
-      <div className="contact-aside"><span className="eyebrow">Let’s get started</span><h2>What would you like to make possible?</h2><p>Share a challenge, an idea or a question. We can explore what the right next step might look like.</p><div className="contact-aside-note"><CircleHelp size={18} /><p>This demo form does not send messages. Email us directly at <a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a>.</p></div><div className="contact-aside-detail"><span className="contact-aside-icon"><Mail size={17} /></span><div><small>Email us</small><a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a></div></div><div className="contact-aside-detail"><span className="contact-aside-icon"><MapPin size={17} /></span><div><small>Office address</small><address>The Leeming Building, Ludgate Hill,<br />Leeds, England, LS2 7HZ</address></div></div>
+      <div className="contact-aside"><span className="eyebrow">Let’s get started</span><h2>What would you like to make possible?</h2><p>Share a challenge, an idea or a question. We can explore what the right next step might look like.</p><div className="contact-aside-note"><CircleHelp size={18} /><p>Send us your enquiry using the form, or email us directly at <a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a>.</p></div><div className="contact-aside-detail"><span className="contact-aside-icon"><Mail size={17} /></span><div><small>Email us</small><a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a></div></div><div className="contact-aside-detail"><span className="contact-aside-icon"><MapPin size={17} /></span><div><small>Office address</small><address>The Leeming Building, Ludgate Hill,<br />Leeds, England, LS2 7HZ</address></div></div>
       </div>
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit}>
+        <input type="hidden" name="form-name" value="contact" />
+        <div hidden><label>Leave this field empty: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label></div>
         <div className="form-heading"><h2>Tell us about your project</h2><p>Fields marked with an asterisk are required.</p></div>
         <div className="form-row"><label>Full name *<input name="name" autoComplete="name" required minLength={2} placeholder="Your name" /></label><label>Business email *<input type="email" name="email" autoComplete="email" required placeholder="you@company.com" /></label></div>
         <div className="form-row"><label>Company name *<input name="company" autoComplete="organization" required minLength={2} placeholder="Your organisation" /></label><label>Service of interest<select name="service" defaultValue=""><option value="">Choose an area</option>{services.map((service) => <option value={service.shortTitle} key={service.path}>{service.shortTitle}</option>)}<option value="Other">Other / not sure yet</option></select></label></div>
         <label>How can we help? *<textarea name="message" required minLength={10} rows={5} placeholder="A few details about your goals or challenge…" /></label>
         <label className="consent-checkbox"><input type="checkbox" name="consent" required /><span>I agree that JKA InfoTech may use these details to respond to my enquiry. See our <Link to="/privacy">Privacy Policy</Link>. *</span></label>
-        <button className="button form-submit" type="submit">Submit enquiry <ArrowRight size={16} /></button>
-        <p className="form-demo-note"><ShieldCheck size={15} />Demo form only: details stay in this browser and are not sent.</p>
-        {submitted && <p className="form-status" role="status">{message}</p>}
+        <button className="button form-submit" type="submit" disabled={submissionStatus === 'sending'}>{submissionStatus === 'sending' ? 'Sending…' : 'Submit enquiry'} <ArrowRight size={16} /></button>
+        <p className="form-demo-note"><ShieldCheck size={15} />Your enquiry will be sent securely to our team.</p>
+        {submissionStatus === 'success' && <p className="form-status" role="status">Thank you. Your enquiry has been sent, and our team will be in touch.</p>}
+        {submissionStatus === 'error' && <p className="form-status form-status-error" role="alert">We couldn’t send your enquiry. Please try again or email <a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a>.</p>}
       </form>
     </div></section>
   </>;
@@ -149,9 +171,9 @@ export function PolicyPage({ kind }: { kind: 'privacy' | 'cookies' }) {
     <section className="section policy-section"><div className="container policy-layout"><aside className="policy-aside"><ShieldCheck size={22} /><span className="eyebrow">Transparency first</span><p>Template policy · Review and update before launch</p></aside><div className="policy-copy">
       {isPrivacy ? <>
         <h2>About this policy</h2><p>This is a starter template for JKA InfoTech, a placeholder business identity. It is not legal advice. Before publication, confirm the organisation’s legal identity, contact details, lawful bases, retention periods, processors and applicable privacy requirements.</p>
-        <h2>Information you choose to provide</h2><p>The contact form on this demonstration site performs browser-side validation only. It does not send, transmit or save enquiry details. When a real form service is connected, this section must explain what information is collected, why, where it is stored, who can access it and how long it is retained.</p>
+        <h2>Information you choose to provide</h2><p>When you submit the contact form, the information you provide is sent through Netlify Forms so JKA InfoTech can respond to your enquiry. Before launch, confirm Netlify’s processing terms, access controls and retention settings and update this notice with the organisation’s verified privacy practices.</p>
         <h2>Cookies and local storage</h2><p>This site stores your cookie preference in your browser’s local storage so it can remember your selection. No analytics or advertising integrations are active in this demonstration. Update this policy if analytics, embedded media or other non-essential technologies are introduced.</p>
-        <h2>Your choices and rights</h2><p>Applicable rights depend on your location and the organisation’s role. Provide verified contact information and instructions for privacy requests before launch. Do not submit personal information through this demo site.</p>
+        <h2>Your choices and rights</h2><p>Applicable rights depend on your location and the organisation’s role. Provide verified contact information and instructions for privacy requests before launch.</p>
       </> : <>
         <h2>Storage used on this site</h2><p>This demonstration website uses browser local storage to remember your cookie preference. The preference is not sent to a server. No analytics or advertising cookies are currently configured.</p>
         <h2>Essential storage</h2><p>Essential storage supports site functionality and remembering your preference. This demonstration does not use a backend session or account system.</p>

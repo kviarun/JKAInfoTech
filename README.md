@@ -55,7 +55,7 @@ The production build runs the TypeScript project check before Vite compiles the 
 2. Confirm the legal identity and any approved social profiles. The supplied contact email and Leeds address are displayed on the site.
 3. Replace demonstration insight content and illustrative scenarios with real, reviewed material. No customer results, partner status, certifications or awards are claimed.
 4. Review the privacy and cookie policy templates against actual business practices and legal requirements.
-5. Configure a real contact form provider/API and update the form status behavior. Until connected, the form validates in the browser and explicitly reports that it has not sent the enquiry.
+5. Deploy the site to Netlify to enable the Netlify Forms contact form. In Netlify, enable form detection, then add an email notification for the `contact` form and set its recipient to `info@jkainfotech.com`. If form detection was enabled after the initial deploy, trigger a new deploy so Netlify scans the static form in `index.html`.
 6. If adding analytics or other non-essential technologies, connect them to the consent choices and update the cookie policy. No analytics or advertising scripts are active by default.
 7. Review the sample service capabilities against the services JKA InfoTech is confirmed to provide.
 

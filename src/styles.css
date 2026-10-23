@@ -423,6 +423,8 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
 .form-demo-note{display:flex;align-items:center;gap:7px;margin:13px 0 0;color:#8492a0;font-size:10px}
 .form-demo-note svg{color:#6084ae}
 .form-status{margin:15px 0 0;padding:12px;background:#f0f6ff;border-left:2px solid #3279dd;color:#325f99;font-size:11px}
+.form-status-error{background:#fff5f4;border-left-color:#c7473b;color:#923a32}
+.form-status-error a{color:inherit;text-decoration:underline}
 .policy-section{padding-top:75px}
 .policy-layout{display:grid;grid-template-columns:.42fr 1.58fr;gap:90px;align-items:start}
 .policy-aside{position:sticky;top:110px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:20px;background:#f4f7fa}
