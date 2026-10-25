@@ -441,12 +441,12 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
 
 /* Consent dialog */
 .consent-layer{position:fixed;z-index:70;inset:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
-.consent-panel{position:relative;z-index:2;width:min(100%,920px);margin:20px;padding:23px 25px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:28px;background:#fff;border:1px solid #dce4eb;box-shadow:0 14px 50px #08152230;pointer-events:auto}
-.consent-copy .eyebrow{font-size:9px}
-.consent-copy h2{margin:7px 0 5px;font-size:21px}
-.consent-copy>p{max-width:565px;margin:0;color:#66788a;font-size:10px;line-height:1.7}
-.consent-actions{display:flex;flex-direction:column;align-items:stretch;gap:7px;min-width:135px}
-.consent-actions .button{min-height:36px;padding:0 11px;font-size:10px}
+.consent-panel{position:relative;z-index:2;width:min(100%,640px);margin:14px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;background:#fff;border:1px solid #dce4eb;box-shadow:0 14px 50px #08152230;pointer-events:auto}
+.consent-copy .eyebrow{display:none}
+.consent-copy h2{margin:0 0 4px;font-size:15px}
+.consent-copy>p{max-width:565px;margin:0;color:#66788a;font-size:12px;line-height:1.5}
+.consent-actions{display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:120px}
+.consent-actions .button{min-height:30px;padding:0 10px;font-size:12px}
 .button-light{background:#2f76d2;border-color:#2f76d2;color:white}
 .button-outline.button-light{border-color:#cbd7e2;background:#fff;color:#3e566e}
 .button-outline.button-light:hover{background:#f3f7fb}
@@ -661,9 +661,9 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
   .policy-copy h2{font-size:21px}
   .policy-copy p{font-size:11px}
   .consent-layer{align-items:flex-end}
-  .consent-panel{grid-template-columns:1fr;gap:14px;margin:8px;padding:17px}
-  .consent-copy h2{font-size:19px}
-  .consent-copy>p{font-size:9px}
+  .consent-panel{grid-template-columns:1fr;gap:8px;margin:8px;padding:12px}
+  .consent-copy h2{font-size:14px}
+  .consent-copy>p{font-size:11px}
   .consent-actions{display:grid;grid-template-columns:1fr 1fr;min-width:0}
   .consent-actions .consent-settings-link{grid-column:1/3}
   .consent-settings{width:calc(100% - 26px);align-self:center;margin:auto}

@@ -21,7 +21,7 @@ body{font-size:19px;line-height:1.7}
 .service-grid{grid-template-columns:repeat(4,1fr)}
 .challenge-copy>p,.challenge-copy .button{font-size:18px}
 .challenge-row h3,.industry-card-title,.showcase-tab-copy strong,.capability-list h3,.faq-item>button,.principle-grid h3,.related-insights-inner>div:nth-child(2)>a>strong{font-size:20px}
-.showcase-tab-copy small,.footer-column>a,.footer-column>p,.footer-column>span,.footer-column>address,.text-link-light,.contact-aside-detail a,.contact-aside-detail address,.contact-aside-detail strong,.contact-form label,.form-status,.policy-aside p,.form-heading p,.preference-options strong,.consent-copy>p,.consent-actions .button,.consent-settings-link,.preference-options small,.contact-aside-note p,.contact-form input:not([type=checkbox]),.contact-form select,.contact-form textarea,.form-submit,.hero-secondary-link{font-size:16px}
+.showcase-tab-copy small,.footer-column>a,.footer-column>p,.footer-column>span,.footer-column>address,.text-link-light,.contact-aside-detail a,.contact-aside-detail address,.contact-aside-detail strong,.contact-form label,.form-status,.policy-aside p,.form-heading p,.preference-options strong,.preference-options small,.contact-aside-note p,.contact-form input:not([type=checkbox]),.contact-form select,.contact-form textarea,.form-submit,.hero-secondary-link{font-size:16px}
 .page-hero-inner>div:first-child>p{font-size:21px}
 .page-hero h1{font-size:clamp(42px,5.4vw,68px)}
 .showcase-photo-tag,.showcase-photo-index,.showcase-photo-caption p span,.story-art-label,.story-art-code,.insight-art-label,.insight-list-art>span,.orb-label,.hero-note{font-size:13px}

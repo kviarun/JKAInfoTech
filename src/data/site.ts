@@ -175,14 +175,7 @@ export const industries = [
   { title: 'Professional services', icon: Boxes, text: 'Reduce administration and connect client, project and finance processes.' },
 ];
 
-export const insights = [
-  { category: 'Dynamics 365', date: 'Demonstration content', title: 'Planning a Dynamics 365 implementation around business outcomes', text: 'A practical starting point for aligning scope, stakeholders and process change.' },
-  { category: 'Power Platform', date: 'Demonstration content', title: 'A thoughtful approach to Power Platform governance', text: 'How ownership, environments and lifecycle practices can support sustainable low-code delivery.' },
-  { category: 'AI & data', date: 'Demonstration content', title: 'Preparing enterprise knowledge for responsible AI', text: 'Considerations for access, trust and user experience before introducing AI-assisted work.' },
-  { category: 'Azure', date: 'Demonstration content', title: 'Choosing integration patterns for a changing business', text: 'A guide to thinking about APIs, events and workflow automation in context.' },
-  { category: 'Data & analytics', date: 'Demonstration content', title: 'Building a more trusted foundation for analytics', text: 'Why definitions, data ownership and quality matter as much as platform choices.' },
-  { category: 'Transformation', date: 'Demonstration content', title: 'Making digital transformation practical', text: 'Turn a broad ambition into a manageable sequence of decisions and improvements.' },
-];
+export { insights } from './insights';
 
 export const navigationGroups = [
   {

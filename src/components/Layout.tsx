@@ -83,7 +83,6 @@ export function Header() {
               </div>
             </div>
           ))}
-          <NavLink to="/success-stories" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Success Stories</NavLink>
           <NavLink to="/insights" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>Insights</NavLink>
           <NavLink to="/about" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}>About Us</NavLink>
           <Link to="/contact" className="mobile-contact-link">Contact Us</Link>
@@ -113,7 +112,6 @@ export function Footer({ onCookiePreferences }: { onCookiePreferences: () => voi
         <div className="footer-column">
           <h2>Company</h2>
           <Link to="/industries">Industries</Link>
-          <Link to="/success-stories">Success stories</Link>
           <Link to="/insights">Insights</Link>
           <Link to="/about">About us</Link>
           <Link to="/contact">Contact us</Link>

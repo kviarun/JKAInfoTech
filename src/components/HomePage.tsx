@@ -68,7 +68,6 @@ function InteractiveShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const activeItem = showcaseItems[activeIndex];
-  const ActiveIcon = activeItem.icon;
 
   const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     let nextIndex: number | undefined;
@@ -125,11 +124,6 @@ function InteractiveShowcase() {
       >
         <img key={activeItem.image} src={activeItem.image} alt={activeItem.alt} loading="lazy" decoding="async" />
         <div className="showcase-photo-shade" />
-        <span className="showcase-photo-tag"><ActiveIcon size={14} />{activeItem.tag}</span>
-        <div className="showcase-photo-caption">
-          <span className="showcase-photo-index">JKA / 0{activeIndex + 1}</span>
-          <p>{activeItem.label}<span>Technology with people at its centre.</span></p>
-        </div>
         <span className="showcase-photo-progress" aria-hidden="true"><i style={{ width: `${((activeIndex + 1) / showcaseItems.length) * 100}%` }} /></span>
       </div>
     </div>
@@ -189,7 +183,7 @@ export function HomePage() {
 
       <section className="industries-section section">
         <div className="container">
-          <SectionHeading kicker="Industry understanding" title="Technology for the realities of your industry." text="Every organisation is different. We start with the work, pressures and opportunities specific to your sector." />
+          <SectionHeading kicker="Industry understanding" title="Technology for the realities of your industry." text="Manufacturing, retail, financial services and healthcare each bring different systems, regulation and priorities. We start with the work and pressures specific to your sector." />
           <div className="industry-grid">
             {industries.map(({ title, text, icon: Icon }, index) => <Link to="/industries" className={`industry-card industry-card-${index + 1}`} key={title}>
               <span className="industry-icon"><Icon size={19} /></span><span className="industry-card-title">{title}<ChevronRight size={15} /></span><span className="industry-description">{text}</span>
@@ -203,7 +197,7 @@ export function HomePage() {
         <div className="container">
           <div className="solutions-heading">
             <div><span className="eyebrow eyebrow-light">From ambition to action</span><h2>Three ways to move<br />business forward.</h2></div>
-            <p>Illustrative solution areas—not customer case studies. The right approach depends on your goals, systems and context.</p>
+            <p>Automation, data and AI deliver most when they are tied to a specific business process. These are the three places engagements most often begin.</p>
           </div>
           <div className="solution-grid">
             <article className="solution-card solution-card-blue"><span className="solution-index">01 / AUTOMATION</span><Workflow size={25} /><h3>Give good work room to flow.</h3><p>Connect process steps, reduce avoidable hand-offs and create a better experience for the people doing the work.</p><span className="solution-outcome"><Check size={14} />A more consistent process</span><Link to="/services/power-platform" aria-label="Explore intelligent automation" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
@@ -215,10 +209,10 @@ export function HomePage() {
 
       <section className="section stories-section">
         <div className="container stories-layout">
-          <div className="stories-intro"><span className="eyebrow">Success stories</span><h2>Trust is earned through the work.</h2><p>We’ll share real client stories when they’re available and approved. Until then, explore the kinds of challenges we’re built to help solve.</p><Link to="/success-stories" className="text-link">Our approach to outcomes <ArrowRight size={15} /></Link></div>
+          <div className="stories-intro"><span className="eyebrow">How we work</span><h2>Clear scope, steady delivery.</h2><p>Every engagement starts with a short discovery conversation, followed by a written scope, agreed milestones and regular reviews, so you always know what is happening and what comes next.</p><Link to="/about" className="text-link">About our approach <ArrowRight size={15} /></Link></div>
           <div className="story-placeholder">
-            <div className="story-art"><span className="story-art-square" /><span className="story-art-circle" /><span className="story-art-line" /><span className="story-art-label">BUSINESS + TECHNOLOGY</span><span className="story-art-code">01 — 04</span></div>
-            <div className="story-caption"><span className="eyebrow">Illustrative scenario</span><h3>Connecting operational information for a clearer view of the business.</h3><Link to="/success-stories" aria-label="Read about illustrative success story scenarios"><ArrowRight size={18} /></Link></div>
+            <div className="story-art"><span className="story-art-square" /><span className="story-art-circle" /><span className="story-art-line" /></div>
+                      <div className="story-caption"><span className="eyebrow">A typical engagement</span><h3>From a discovery conversation to a prioritised, costed roadmap.</h3><Link to="/about" aria-label="Read about our approach"><ArrowRight size={18} /></Link></div>
           </div>
         </div>
       </section>
@@ -228,12 +222,11 @@ export function HomePage() {
           <div className="insights-header"><SectionHeading kicker="Ideas & perspectives" title="A little clarity goes a long way." text="Practical thinking on the technologies and decisions shaping modern business." /><Link to="/insights" className="text-link insights-all">All insights <ArrowRight size={15} /></Link></div>
           <div className="insights-grid">
             {insights.slice(0, 3).map((article, index) => <article className={`insight-card insight-card-${index + 1}`} key={article.title}>
-              <div className="insight-art"><span className="insight-art-label">{article.category.toUpperCase()}</span><span className="insight-art-number">0{index + 1}</span><span className="insight-art-shape" /></div>
+              <div className="insight-art"><span className="insight-art-shape" /></div>
               <div className="insight-meta"><span>{article.category}</span><span>{article.date}</span></div><h3>{article.title}</h3><p>{article.text}</p>
-              <Link to="/insights" className="card-link">Read insight <ArrowRight size={15} /></Link>
+                            <Link to={`/insights/${article.slug}`} className="card-link">Read insight <ArrowRight size={15} /></Link>
             </article>)}
           </div>
-          <p className="demo-disclaimer">Demonstration content — sample topics shown for layout purposes.</p>
         </div>
       </section>
 

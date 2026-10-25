@@ -124,9 +124,6 @@ export function OfferingsExplorer() {
         <div className="tcs-panel" id="offering-panel" role="tabpanel" aria-labelledby={`tab-${active.id}`}>
           <div className="tcs-panel-media">
             <img key={active.image} src={active.image} alt={active.alt} loading="lazy" decoding="async" />
-            <div className="tcs-panel-media-caption">
-              {active.highlights.map((h) => <div key={h.label}><strong>{h.value}</strong><span>{h.label}</span></div>)}
-            </div>
           </div>
           <div className="tcs-panel-body">
             <h3>{active.name}</h3>

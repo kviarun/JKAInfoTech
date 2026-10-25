@@ -1,18 +1,19 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
   ArrowRight, ArrowUpRight, Check, ChevronDown, CircleHelp, Clock3, Compass, MapPin,
   Layers3, LockKeyhole, Mail, ShieldCheck, Sparkles, Target,
 } from 'lucide-react';
 import { OfferingDeepDive } from '../components/Interactive';
 import { industries, insights, services, type Service } from '../data/site';
+import type { Insight } from '../data/insights';
 
 export function PageHero({ kicker, title, text, tone = 'light', children }: { kicker: string; title: string; text: string; tone?: 'light' | 'dark'; children?: React.ReactNode }) {
   return (
     <section className={`page-hero page-hero-${tone}`}>
       <div className="container page-hero-inner">
         <div><span className="eyebrow">{kicker}</span><h1>{title}</h1><p>{text}</p>{children}</div>
-        <div className="page-hero-orb" aria-hidden="true"><span className="orb-ring orb-ring-a" /><span className="orb-ring orb-ring-b" /><span className="orb-ring orb-ring-c" /><span className="orb-core"><span /></span><span className="orb-label">JKA / 01</span></div>
+        <div className="page-hero-orb" aria-hidden="true"><span className="orb-ring orb-ring-a" /><span className="orb-ring orb-ring-b" /><span className="orb-ring orb-ring-c" /><span className="orb-core"><span /></span></div>
       </div>
     </section>
   );
@@ -40,25 +41,40 @@ export function ServicesPage() {
     <section className="section page-content-section"><div className="container">
       <PageIntro kicker="Built around your priorities" title="Expertise where it makes a difference." text="Start with a specific challenge or bring us a broader transformation goal. We’ll work with you to shape the right next step." />
       <div className="service-list-grid">{services.map(({ title, path, icon: Icon, description }, index) => <Link to={path} className="service-list-card" key={path}><span className="service-list-number">0{index + 1}</span><span className="icon-frame"><Icon size={21} /></span><h2>{title}</h2><p>{description}</p><span className="card-link">Explore service <ArrowRight size={15} /></span></Link>)}</div>
-      <div className="service-note"><Sparkles size={18} /><p>Every organisation is different. Capabilities are tailored to confirmed project needs, existing platforms and available delivery capacity.</p></div>
+      <div className="service-note"><Sparkles size={18} /><p>Not sure which service fits? Describe the problem you’re trying to solve and we’ll suggest the most sensible place to start.</p></div>
     </div></section><ContactCta />
   </>;
+}
+
+const relatedSlugs: Record<string, string[]> = {
+  '/services/dynamics-365': ['planning-a-dynamics-365-implementation', 'making-digital-transformation-practical'],
+  '/services/power-platform': ['power-platform-governance', 'making-digital-transformation-practical'],
+  '/services/ai-copilot': ['preparing-knowledge-for-responsible-ai', 'trusted-foundation-for-analytics'],
+  '/services/azure-cloud': ['choosing-integration-patterns', 'making-digital-transformation-practical'],
+  '/services/data-analytics': ['trusted-foundation-for-analytics', 'preparing-knowledge-for-responsible-ai'],
+  '/services/enterprise-integration': ['choosing-integration-patterns', 'planning-a-dynamics-365-implementation'],
+};
+
+function relatedInsights(service: Service) {
+  const slugs = relatedSlugs[service.path];
+  const matches = slugs ? slugs.map((slug) => insights.find((item) => item.slug === slug)).filter((item): item is Insight => Boolean(item)) : [];
+  return matches.length ? matches : insights.slice(0, 2);
 }
 
 export function ServicePage({ service }: { service: Service }) {
   const Icon = service.icon;
   return <>
     <PageHero kicker={`Services / ${service.shortTitle}`} title={service.title} text={service.intro}><div className="hero-actions page-hero-actions"><Link to="/contact" className="button">Discuss your goals <ArrowRight size={15} /></Link><Link to="/services" className="hero-secondary-link">All services <ArrowUpRight size={15} /></Link></div></PageHero>
-    <section className="service-value-section"><div className="container service-value-layout"><span className="icon-frame icon-frame-large"><Icon size={26} /></span><div><span className="eyebrow">The opportunity</span><h2>Move from technology complexity to business clarity.</h2></div><p>Build a solution around the outcomes you need, the systems you have and the people who will use it. We help you make informed choices at every stage.</p></div></section>
+    <section className="service-value-section"><div className="container service-value-layout"><span className="icon-frame icon-frame-large"><Icon size={26} /></span><div><span className="eyebrow">Where it usually starts</span><h2>Where {service.shortTitle} work begins.</h2></div><p>Teams usually come to us with {service.challenges.map((challenge) => challenge.charAt(0).toLowerCase() + challenge.slice(1)).join(', ')}.</p></div></section>
     <section className="section page-content-section"><div className="container service-detail-grid">
-      <div><PageIntro kicker="Where we can help" title="Capabilities for the whole journey." text="From early decisions through delivery and ongoing improvement, focus on what makes the difference for your teams." /><div className="capability-list">{service.capabilities.map((capability, index) => <div key={capability}><span>0{index + 1}</span><h3>{capability}</h3><Check size={15} /></div>)}</div></div>
-      <aside className="technology-panel"><span className="eyebrow">Relevant technologies</span><h3>Designed for your environment.</h3><p>Technology selection should reflect your requirements, existing investments and constraints.</p><div className="technology-tags">{service.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div><div className="panel-footnote"><ShieldCheck size={17} />No partner, certification or product status is implied.</div></aside>
+      <div><PageIntro kicker="What we deliver" title={`${service.shortTitle} capabilities.`} text={service.description} /><div className="capability-list">{service.capabilities.map((capability, index) => <div key={capability}><span>0{index + 1}</span><h3>{capability}</h3><Check size={15} /></div>)}</div></div>
+      <aside className="technology-panel"><span className="eyebrow">Technologies</span><h3>What a {service.shortTitle} engagement typically involves.</h3><p>The final selection depends on the systems you already run and the requirements we agree together.</p><div className="technology-tags">{service.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div></aside>
     </div></section>
     <OfferingDeepDive path={service.path} />
     <section className="related-band"><div className="container related-layout"><div><span className="eyebrow">Common use cases</span><h2>Start with the work to be done.</h2></div><div className="use-case-list">{service.useCases.map((useCase, index) => <div key={useCase}><span>0{index + 1}</span><p>{useCase}</p><ArrowUpRight size={16} /></div>)}</div></div></section>
-    <section className="section page-content-section"><div className="container approach-layout"><div><PageIntro kicker="How we work" title="Progress, made practical." text="A collaborative approach that provides clarity, keeps delivery grounded and supports your team beyond launch." /><div className="approach-steps">{service.approach.map((step, index) => <div key={step}><span>{['DISCOVER', 'DESIGN', 'DELIVER', 'EVOLVE'][index]}</span><p>{step}</p></div>)}</div></div><div className="why-panel"><div className="why-panel-icon"><Target size={20} /></div><span className="eyebrow">Business first</span><h3>Make the technology serve a clear purpose.</h3><p>Good solutions start with the outcomes, people and operational realities that matter to you—not a predefined product checklist.</p><Link to="/about" className="text-link">About our approach <ArrowRight size={14} /></Link></div></div></section>
-    <section className="faq-section"><div className="container faq-layout"><div><span className="eyebrow">Questions & answers</span><h2>A few useful things to know.</h2><p>Every engagement is shaped around your requirements. Here are some common starting questions.</p></div><ServiceFaq service={service} /></div></section>
-    <section className="related-insights"><div className="container related-insights-inner"><div><span className="eyebrow">Keep exploring</span><h2>Ideas connected to {service.shortTitle}.</h2></div><div>{insights.slice(0, 2).map((insight) => <Link to="/insights" key={insight.title}><span>{insight.category} · {insight.date}</span><strong>{insight.title}</strong><ArrowRight size={15} /></Link>)}</div></div></section>
+    <section className="section page-content-section"><div className="container approach-layout"><div><PageIntro kicker="How we work" title={`How a ${service.shortTitle} project runs.`} text="Four stages, each finishing with an output you can review before the next one begins." /><div className="approach-steps">{service.approach.map((step, index) => <div key={step}><span>{['DISCOVER', 'DESIGN', 'DELIVER', 'EVOLVE'][index]}</span><p>{step}</p></div>)}</div></div><div className="why-panel"><div className="why-panel-icon"><Target size={20} /></div><span className="eyebrow">A typical first step</span><h3>Start with a focused conversation.</h3><p>A short discussion about {service.challenges[0].charAt(0).toLowerCase() + service.challenges[0].slice(1)} is usually the quickest way to define scope and agree what to tackle first.</p><Link to="/contact" className="text-link">Talk to our team <ArrowRight size={14} /></Link></div></div></section>
+    <section className="faq-section"><div className="container faq-layout"><div><span className="eyebrow">Questions & answers</span><h2>Common questions about {service.shortTitle}.</h2><p>Points that usually come up before a project starts.</p></div><ServiceFaq service={service} /></div></section>
+    <section className="related-insights"><div className="container related-insights-inner"><div><span className="eyebrow">Keep exploring</span><h2>Ideas connected to {service.shortTitle}.</h2></div><div>{relatedInsights(service).map((insight) => <Link to={`/insights/${insight.slug}`} key={insight.slug}><span>{insight.category} · {insight.date}</span><strong>{insight.title}</strong><ArrowRight size={15} /></Link>)}</div></div></section>
     <ContactCta title={`Make ${service.shortTitle} work for your business.`} />
   </>;
 }
@@ -66,7 +82,7 @@ export function ServicePage({ service }: { service: Service }) {
 export function IndustriesPage() {
   return <>
     <PageHero kicker="Industries" title="Technology grounded in your world." text="Industry context matters. Explore how connected applications, cloud, data and automation can support the realities of different sectors." />
-    <section className="section page-content-section"><div className="container"><PageIntro kicker="Industry perspectives" title="Start with your business, not a template." text="These are areas where technology may help—not claims of specific customer work or outcomes. The right solution depends on your organisation." />
+    <section className="section page-content-section"><div className="container"><PageIntro kicker="Industry perspectives" title="Where technology helps in each sector." text="Every sector has its own regulation, systems and pace of change. These are the kinds of problems we’re most often asked to look at." />
       <div className="industry-detail-grid">{industries.map(({ title, text, icon: Icon }, index) => <article key={title}><span className="industry-detail-number">0{index + 1} / INDUSTRY</span><Icon size={23} /><h2>{title}</h2><p>{text}</p><div className="industry-tags">{['Applications', 'Connected data', 'Automation'].slice(0, index % 2 ? 2 : 3).map((tag) => <span key={tag}>{tag}</span>)}</div></article>)}</div>
     </div></section><ContactCta title="Bring us the challenge your industry is facing." />
   </>;
@@ -74,28 +90,43 @@ export function IndustriesPage() {
 
 export function StoriesPage() {
   const scenarios = [
-    { sector: 'Manufacturing · Illustrative scenario', title: 'Connecting operational and finance information', problem: 'Different views of orders and operations made it harder to understand the status of work.', approach: 'A possible approach could connect selected business application data, agree shared definitions and create role-focused reporting.', tech: 'Dynamics 365 · Microsoft Fabric · Power BI' },
-    { sector: 'Professional services · Illustrative scenario', title: 'Making a recurring approval process easier to manage', problem: 'A manual, email-led process created avoidable hand-offs and limited visibility for teams.', approach: 'A possible approach could map the workflow, introduce a governed Power Platform experience and monitor adoption.', tech: 'Power Apps · Power Automate · Dataverse' },
-    { sector: 'Distribution · Illustrative scenario', title: 'Improving information flow between business systems', problem: 'Point-to-point connections made change difficult and provided limited insight into failures.', approach: 'A possible approach could establish API and messaging patterns with centralised monitoring and clear ownership.', tech: 'Azure Functions · Service Bus · API Management' },
+    { sector: 'Manufacturing', title: 'Connecting operational and finance information', problem: 'Different views of orders and operations made it harder to understand the status of work.', approach: 'Connect selected business application data, agree shared definitions and create role-focused reporting.', tech: 'Dynamics 365 · Microsoft Fabric · Power BI' },
+    { sector: 'Professional services', title: 'Making a recurring approval process easier to manage', problem: 'A manual, email-led process created avoidable hand-offs and limited visibility for teams.', approach: 'Map the workflow, introduce a governed Power Platform experience and monitor adoption.', tech: 'Power Apps · Power Automate · Dataverse' },
+    { sector: 'Distribution', title: 'Improving information flow between business systems', problem: 'Point-to-point connections made change difficult and provided limited insight into failures.', approach: 'Establish API and messaging patterns with centralised monitoring and clear ownership.', tech: 'Azure Functions · Service Bus · API Management' },
   ];
   return <>
-    <PageHero kicker="Success stories" title="Outcomes begin with understanding." text="We believe useful outcomes come from understanding the people, processes and platforms involved. This page uses illustrative scenarios only; no client results are claimed." />
-    <section className="section page-content-section"><div className="container"><PageIntro kicker="Illustrative scenarios" title="Examples of challenges we can help explore." text="These scenarios demonstrate possible approaches and are not real customer engagements or guarantees of results." />
-      <div className="scenario-list">{scenarios.map((scenario, index) => <article key={scenario.title}><div className={`scenario-graphic scenario-graphic-${index + 1}`}><span>SCENARIO / 0{index + 1}</span><div className="scenario-graphic-lines" /><span className="scenario-graphic-shape" /></div><div className="scenario-content"><span className="eyebrow">{scenario.sector}</span><h2>{scenario.title}</h2><dl><div><dt>Challenge</dt><dd>{scenario.problem}</dd></div><div><dt>Possible approach</dt><dd>{scenario.approach}</dd></div><div><dt>Relevant technologies</dt><dd>{scenario.tech}</dd></div></dl></div></article>)}</div>
-      <p className="demo-disclaimer">Illustrative demonstration content. Replace with approved, verifiable customer stories when available.</p>
+    <PageHero kicker="Success stories" title="Outcomes begin with understanding."     text="Useful outcomes come from understanding the people, processes and platforms involved. These are the kinds of challenges we are typically asked to help with." />
+        <section className="section page-content-section"><div className="container"><PageIntro kicker="Common challenges" title="Examples of problems we help solve." text="Each shows the situation we often meet and the approach we would normally take." />
+      <div className="scenario-list">{scenarios.map((scenario, index) => <article key={scenario.title}><div className={`scenario-graphic scenario-graphic-${index + 1}`}><span>SCENARIO / 0{index + 1}</span><div className="scenario-graphic-lines" /><span className="scenario-graphic-shape" /></div><div className="scenario-content"><span className="eyebrow">{scenario.sector}</span><h2>{scenario.title}</h2><dl><div><dt>Challenge</dt><dd>{scenario.problem}</dd></div><div><dt>Approach</dt><dd>{scenario.approach}</dd></div><div><dt>Relevant technologies</dt><dd>{scenario.tech}</dd></div></dl></div></article>)}</div>
     </div></section><ContactCta />
   </>;
 }
 
 export function InsightsPage() {
   return <>
-    <PageHero kicker="Insights" title="Ideas for the decisions ahead." text="Explore practical perspectives on business applications, cloud, data and AI. The examples on this page are demonstration content." />
-    <section className="section page-content-section"><div className="container"><PageIntro kicker="The latest thinking" title="Technology, without the jargon." text="Sample topics are shown to establish the content experience. Replace these with genuine articles and confirmed publication dates." />
-      <div className="insight-list-grid">{insights.map((item, index) => <article className="insight-list-card" key={item.title}><div className={`insight-list-art insight-list-art-${index + 1}`}><span>{item.category}</span><b>0{index + 1}</b></div><div className="insight-meta"><span>{item.category}</span><span>{item.date}</span></div><h2>{item.title}</h2><p>{item.text}</p><span className="demo-article-link">Demonstration article</span></article>)}</div>
-      <p className="demo-disclaimer">All articles and dates are placeholders for demonstration purposes.</p>
-    </div></section><ContactCta title="Have a topic you’re working through?" text="Start a conversation about your organisation’s priorities and the decisions ahead." />
-  </>;
-}
+    <PageHero kicker="Insights" title="Ideas for the decisions ahead." text="Practical perspectives on business applications, cloud, integration, data and AI, written for the people making technology decisions." />
+    <section className="section page-content-section"><div className="container"><PageIntro kicker="Latest articles" title="Technology, without the jargon." text="Guidance drawn from the kinds of questions that come up when organisations plan, build and run business technology." />
+      <div className="insight-list-grid">{insights.map((item, index) =>       <article className="insight-list-card" key={item.slug}><div className={`insight-list-art insight-list-art-${index + 1}`}></div><div className="insight-meta"><span>{item.category}</span><span>{item.date} · {item.readTime}</span></div><h2>{item.title}</h2><p>{item.text}</p><Link to={`/insights/${item.slug}`} className="card-link">Read article <ArrowRight size={15} /></Link></article>)}</div>
+          </div></section><ContactCta title="Working through a similar decision?" text="Tell us what you’re planning and we’ll share how we’d approach it." />
+        </>;
+      }
+
+      export function InsightArticlePage() {
+        const { slug } = useParams();
+        const article = insights.find((item) => item.slug === slug);
+        if (!article) return <main className="not-found"><div><span className="eyebrow">Insights</span><h1>We couldn’t find that article.</h1><p>It may have moved. Browse our latest articles instead.</p><Link className="button" to="/insights">All insights</Link></div></main>;
+        const more = insights.filter((item) => item.slug !== article.slug).slice(0, 2);
+        return <>
+          <PageHero kicker={`Insights / ${article.category}`} title={article.title} text={`${article.date} · ${article.readTime} · JKA InfoTech`} />
+          <section className="section policy-section"><div className="container policy-layout"><aside className="policy-aside"><span className="eyebrow">Key takeaways</span>{article.takeaways.map((point) => <p key={point}>{point}</p>)}</aside><div className="policy-copy">
+            <p>{article.text}</p>
+            {article.sections.map((section) => <div key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>)}
+            <p><Link to="/insights" className="text-link">Back to all insights <ArrowRight size={14} /></Link></p>
+          </div></div></section>
+          <section className="related-insights"><div className="container related-insights-inner"><div><span className="eyebrow">Keep reading</span><h2>More from our team.</h2></div><div>{more.map((item) => <Link to={`/insights/${item.slug}`} key={item.slug}><span>{item.category} · {item.date}</span><strong>{item.title}</strong><ArrowRight size={15} /></Link>)}</div></div></section>
+          <ContactCta title="Want to talk this through?" text="If this reflects a decision you’re facing, we’re happy to discuss it." />
+        </>;
+      }
 
 export function AboutPage() {
   const principles = [
@@ -105,11 +136,11 @@ export function AboutPage() {
     { icon: ShieldCheck, title: 'Build for the long term', text: 'Consider security, governance, support and adoption from the beginning.' },
   ];
   return <>
-    <PageHero kicker="About JKA InfoTech" title="A technology partner with business in mind." text="We bring technical thinking and business understanding together to help organisations make considered progress. JKA InfoTech is the business identity; service credentials and company claims should be confirmed before publication." />
-    <section className="section page-content-section"><div className="container about-intro-layout"><div><span className="eyebrow">Our point of view</span><h2>Technology should make meaningful work easier.</h2></div><div><p>Our ambition is to help organisations simplify complexity and make better use of the tools, data and teams they already have—then build thoughtfully toward what comes next.</p><p>We aim to be clear about what is known, what is still a question and how progress can be measured. No invented credentials, customer claims or one-size-fits-all promises.</p></div></div>
+    <PageHero kicker="About JKA InfoTech" title="A technology partner with business in mind." text="We bring technical thinking and business understanding together to help organisations make considered progress across Dynamics 365, Microsoft 365, Azure, Java and data." />
+    <section className="section page-content-section"><div className="container about-intro-layout"><div><span className="eyebrow">Our point of view</span><h2>Technology should make meaningful work easier.</h2></div><div><p>Our ambition is to help organisations simplify complexity and make better use of the tools, data and teams they already have—then build thoughtfully toward what comes next.</p><p>We aim to be clear about what is known, what is still a question and how progress can be measured. Scope, assumptions and next steps are written down so everyone involved is working from the same picture.</p></div></div>
       <div className="principle-grid">{principles.map(({ icon: Icon, title, text }, index) => <article key={title}><span>0{index + 1}</span><Icon size={21} /><h3>{title}</h3><p>{text}</p></article>)}</div>
     </section>
-    <section className="about-note"><div className="container"><LockKeyhole size={21} /><div><span className="eyebrow">A note on our identity</span><p>Business details, team information, contact information, partner status and credentials must be supplied and verified before launch. No client relationships or certifications are represented here.</p></div></div></section>
+    <section className="about-note"><div className="container"><LockKeyhole size={21} /><div><span className="eyebrow">Where we are</span><p>JKA InfoTech is based at The Leeming Building, Ludgate Hill, Leeds, and works with organisations in the UK and internationally. Registered in England and Wales, company number 07710462.</p></div></div></section>
     <ContactCta />
   </>;
 }
@@ -167,20 +198,21 @@ export function ContactPage() {
 export function PolicyPage({ kind }: { kind: 'privacy' | 'cookies' }) {
   const isPrivacy = kind === 'privacy';
   return <>
-    <PageHero kicker={isPrivacy ? 'Privacy' : 'Cookie policy'} title={isPrivacy ? 'Your information, handled with care.' : 'Clear choices about cookies.'} text={`${isPrivacy ? 'A plain-language starting point for how an organisation may handle personal information.' : 'An overview of storage used by this demonstration site.'} This policy is a template and must be reviewed against actual business practices before publication.`} />
-    <section className="section policy-section"><div className="container policy-layout"><aside className="policy-aside"><ShieldCheck size={22} /><span className="eyebrow">Transparency first</span><p>Template policy · Review and update before launch</p></aside><div className="policy-copy">
+    <PageHero kicker={isPrivacy ? 'Privacy' : 'Cookie policy'} title={isPrivacy ? 'Your information, handled with care.' : 'Clear choices about cookies.'} text={isPrivacy ? 'How JKA InfoTech collects, uses and protects the personal information you share through this website.' : 'What this website stores in your browser, and how to change your choice.'} />
+        <section className="section policy-section"><div className="container policy-layout"><aside className="policy-aside"><ShieldCheck size={22} /><span className="eyebrow">{isPrivacy ? 'Privacy' : 'Cookies'}</span><p>Last updated 25 October 2026</p><p>Questions: <a href="mailto:info@jkainfotech.com">info@jkainfotech.com</a></p></aside><div className="policy-copy">
       {isPrivacy ? <>
-        <h2>About this policy</h2><p>This is a starter template for JKA InfoTech, a placeholder business identity. It is not legal advice. Before publication, confirm the organisation’s legal identity, contact details, lawful bases, retention periods, processors and applicable privacy requirements.</p>
-        <h2>Information you choose to provide</h2><p>When you submit the contact form, the information you provide is sent through Netlify Forms so JKA InfoTech can respond to your enquiry. Before launch, confirm Netlify’s processing terms, access controls and retention settings and update this notice with the organisation’s verified privacy practices.</p>
-        <h2>Cookies and local storage</h2><p>This site stores your cookie preference in your browser’s local storage so it can remember your selection. No analytics or advertising integrations are active in this demonstration. Update this policy if analytics, embedded media or other non-essential technologies are introduced.</p>
-        <h2>Your choices and rights</h2><p>Applicable rights depend on your location and the organisation’s role. Provide verified contact information and instructions for privacy requests before launch.</p>
-      </> : <>
-        <h2>Storage used on this site</h2><p>This demonstration website uses browser local storage to remember your cookie preference. The preference is not sent to a server. No analytics or advertising cookies are currently configured.</p>
-        <h2>Essential storage</h2><p>Essential storage supports site functionality and remembering your preference. This demonstration does not use a backend session or account system.</p>
-        <h2>Optional categories</h2><p>The preference interface includes optional analytics and personalisation categories for future integrations. Turning them on does not activate any service in this demo. Integrate and disclose a service before relying on these settings.</p>
-        <h2>Change your preference</h2><p>Use the “Cookie preferences” link in the footer to update or withdraw your saved selection. Clearing this site’s browser storage also removes the saved preference.</p>
-      </>}
-      <p className="policy-updated">Template content — review date to be confirmed.</p>
-    </div></div></section>
+            <h2>Who we are</h2><p>JKA InfoTech (company number 07710462) is based at The Leeming Building, Ludgate Hill, Leeds, England, LS2 7HZ. We are the controller of the personal information described in this notice. You can contact us at info@jkainfotech.com.</p>
+            <h2>Information you provide</h2><p>When you submit the contact form we collect your name, business email address, company name, the service you are interested in and the message you write. The form is processed by Netlify, which hosts this website, and a notification is sent to our enquiries mailbox.</p>
+            <h2>How we use it</h2><p>We use these details only to read and respond to your enquiry and to keep a record of the conversation. We do not sell your information or use it for unrelated marketing without your agreement.</p>
+            <h2>How long we keep it</h2><p>Enquiry details are kept for as long as needed to respond and for a reasonable period afterwards, then deleted. If you become a client, information is handled under the terms of our engagement.</p>
+            <h2>Cookies and local storage</h2><p>This site stores your cookie preference in your browser’s local storage. We do not currently use analytics or advertising cookies. See our cookie policy for details.</p>
+            <h2>Your rights</h2><p>Under UK data protection law you can ask to access, correct or delete your personal information, object to its use, or ask us to restrict it. Email info@jkainfotech.com and we will respond. You also have the right to complain to the Information Commissioner’s Office at ico.org.uk.</p>
+          </> : <>
+            <h2>What this site stores</h2><p>This website stores a single item in your browser’s local storage to remember your cookie choice. It is not sent to a server. We do not currently use analytics or advertising cookies.</p>
+            <h2>Essential storage</h2><p>Essential storage keeps the site working and remembers your preference. The site has no accounts or login sessions.</p>
+            <h2>Optional categories</h2><p>The preference panel includes analytics and personalisation categories. Neither is active today. If we introduce them, we will update this page and only use them if you have allowed them.</p>
+            <h2>Change your preference</h2><p>Use the “Cookie preferences” link in the footer to update or withdraw your selection. Clearing this site’s data in your browser also removes it.</p>
+          </>}
+        </div></div></section>
   </>;
 }

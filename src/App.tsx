@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { CookieConsent, Footer, Header } from './components/Layout';
 import { HomePage } from './components/HomePage';
-import { AboutPage, ContactPage, IndustriesPage, InsightsPage, PolicyPage, ServicePage, ServicesPage, StoriesPage } from './pages/Pages';
-import { services } from './data/site';
+import { AboutPage, ContactPage, IndustriesPage, InsightArticlePage, InsightsPage, PolicyPage, ServicePage, ServicesPage, StoriesPage } from './pages/Pages';
+import { insights, services } from './data/site';
 
 const SITE_ORIGIN = 'https://www.example.com';
 
@@ -22,17 +22,20 @@ function Seo() {
       '/': ['JKA InfoTech | Technology that transforms business', 'Business-led technology consulting across Microsoft business apps, cloud, integration, data and AI.'],
       '/services': ['Technology Consulting Services | JKA InfoTech', 'Explore business applications, cloud, automation, data, AI and integration services.'],
       '/industries': ['Industry Solutions | JKA InfoTech', 'Explore practical technology perspectives for manufacturing, retail, finance and more.'],
-      '/success-stories': ['Success Stories | JKA InfoTech', 'Illustrative scenarios that show how business technology challenges can be approached.'],
-      '/insights': ['Insights | JKA InfoTech', 'Demonstration content on enterprise applications, cloud, data and AI.'],
+      '/success-stories': ['Success Stories | JKA InfoTech', 'Examples of business technology challenges and how we approach them.'],
+      '/insights': ['Insights | JKA InfoTech', 'Articles on Dynamics 365, Power Platform, Azure integration, data and AI.'],
       '/about': ['About JKA InfoTech', 'Our business-led approach to enterprise technology consulting.'],
       '/contact': ['Contact JKA InfoTech', 'Start a conversation about your business technology priorities.'],
-      '/privacy': ['Privacy Policy | JKA InfoTech', 'A template privacy notice for the JKA InfoTech website.'],
-      '/cookies': ['Cookie Policy | JKA InfoTech', 'Learn how this demonstration website uses browser storage and cookie preferences.'],
+      '/privacy': ['Privacy Policy | JKA InfoTech', 'How JKA InfoTech collects, uses and protects personal information.'],
+      '/cookies': ['Cookie Policy | JKA InfoTech', 'What this website stores in your browser and how to change your preference.'],
     };
     const service = services.find((item) => item.path === pathname);
+    const article = insights.find((item) => pathname === `/insights/${item.slug}`);
     const [title, description] = service
       ? [`${service.title} | JKA InfoTech`, service.description]
-      : titleMap[pathname] ?? ['JKA InfoTech | Technology that transforms business', 'Business-led technology consulting for connected, intelligent organisations.'];
+      : article
+        ? [`${article.title} | JKA InfoTech`, article.text]
+        : titleMap[pathname] ?? ['JKA InfoTech | Technology that transforms business', 'Business-led technology consulting for connected, intelligent organisations.'];
     document.title = title;
     let descriptionTag = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (!descriptionTag) {
@@ -75,6 +78,7 @@ export default function App() {
           <Route path="/industries" element={<IndustriesPage />} />
           <Route path="/success-stories" element={<StoriesPage />} />
           <Route path="/insights" element={<InsightsPage />} />
+          <Route path="/insights/:slug" element={<InsightArticlePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy" element={<PolicyPage kind="privacy" />} />
