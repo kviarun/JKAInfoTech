@@ -36,7 +36,7 @@ body{font-size:19px;line-height:1.7}
 .header-inner{width:min(1400px,calc(100% - 56px))}
 .mega-menu{top:84px}
 .brand-name{font-size:24px}
-.brand-mark{width:34px;height:34px}
+.brand-logo{width:38px;height:38px}
 
 /* Buttons */
 .tcs-btn{display:inline-flex;align-items:center;gap:12px;min-height:60px;padding:0 30px;background:var(--tcs-accent);color:#fff;font-size:18px;font-weight:700;border:2px solid var(--tcs-accent);border-radius:999px;transition:background .2s,transform .2s,gap .2s}
