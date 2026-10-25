@@ -38,7 +38,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
 .header-inner{width:min(1320px,calc(100% - 56px));height:100%;margin:auto;display:flex;align-items:center;gap:28px;position:relative;z-index:42}
 .brand{display:inline-flex;align-items:center;gap:11px;flex-shrink:0}
 .brand-logo{width:32px;height:32px;display:block;flex-shrink:0}
-.brand-name{font-family:var(--serif);font-size:18px;font-weight:800;letter-spacing:-.055em;color:#102239;line-height:1}
+.brand-name{font-family:var(--serif);font-size:18px;font-weight:800;letter-spacing:-.055em;color:#1f5fc9;line-height:1}
 .brand-name span{font-weight:500;color:#3c78d1}
 .primary-nav{height:100%;margin-left:auto;display:flex;align-items:center;gap:21px}
 .nav-link{display:inline-flex;align-items:center;gap:5px;padding:9px 0;background:none;border:0;color:#34465b;font-size:13px;font-weight:500;white-space:nowrap;cursor:pointer;transition:color .15s}

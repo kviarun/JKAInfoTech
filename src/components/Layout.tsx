@@ -6,7 +6,7 @@ import { navigationGroups, services } from '../data/site';
 function Brand() {
   return (
     <Link to="/" className="brand" aria-label="JKA InfoTech home">
-      <img className="brand-logo" src="/logo-mark.svg" alt="" aria-hidden="true" width="32" height="32" />
+      <img className="brand-logo" src="/favicon.svg" alt="" aria-hidden="true" width="32" height="32" />
       <span className="brand-name">JKA <span>InfoTech</span></span>
     </Link>
   );
