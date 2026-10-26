@@ -9,5 +9,5 @@
     <rect width="32" height="32" rx="7" fill="url(#g)"/>
     <path d="M20 18.5V9M14 15L20 9L26 15M20 18.5A5.5 5.5 0 0 1 9 18.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
-  <text x="82" y="52" xml:space="preserve" font-family="Arial, Helvetica, sans-serif" font-size="38" letter-spacing="-1.5" fill="#1f5fc9"><tspan font-weight="800">JKA </tspan><tspan font-weight="400" fill="#3c78d1">InfoTech</tspan></text>
+  <text x="82" y="52" xml:space="preserve" font-family="Arial, Helvetica, sans-serif" font-size="38" letter-spacing="-1.5" fill="#1f5fc9"><tspan font-weight="800">JKA </tspan><tspan font-weight="400">InfoTech</tspan></text>
 </svg>

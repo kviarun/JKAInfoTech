@@ -141,9 +141,9 @@ export function HomePage() {
         <div className="container">
           <SectionHeading kicker="What we do" title="Technology, aligned to the work that matters." text="From the systems at the heart of your business to the intelligence that helps it move forward, bring the right capabilities together." />
           <div className="service-grid">
-            {services.map(({ title, path, icon: Icon, description }, index) => (
+            {services.map(({ title, path, icon: Icon, description }) => (
               <article className="service-card" key={path}>
-                <div className="card-topline"><span className="icon-frame"><Icon size={20} /></span><span className="card-number">0{index + 1}</span></div>
+                <div className="card-topline"><span className="icon-frame"><Icon size={20} /></span></div>
                 <h3>{title}</h3><p>{description}</p>
                 <Link to={path} className="card-link">Explore service <ArrowRight size={15} /></Link>
               </article>
@@ -163,13 +163,28 @@ export function HomePage() {
           </div>
           <div className="challenge-list">
             {[
-              ['01', 'Disconnected systems', 'Bring applications and teams into a more connected way of working.'],
-              ['02', 'Manual, repetitive work', 'Automate the right steps while keeping people in control.'],
-              ['03', 'Data that’s hard to trust', 'Build a clearer foundation for reporting and decisions.'],
-              ['04', 'Legacy platforms', 'Modernise at a pace that respects operational reality.'],
-              ['05', 'Slow decisions', 'Make relevant information easier to access and understand.'],
-              ['06', 'Integration that won’t scale', 'Connect services with resilient, observable patterns.'],
-            ].map(([number, title, detail]) => <div className="challenge-row" key={number}><span>{number}</span><div><h3>{title}</h3><p>{detail}</p></div><ArrowDownRight size={17} /></div>)}
+              'Disconnected systems',
+              'Manual, repetitive work',
+              'Data that’s hard to trust',
+              'Legacy platforms',
+              'Slow decisions',
+              'Integration that won’t scale',
+            ].map((title, index) => (
+              <div className="challenge-row" key={title}>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{[
+                    'Bring applications and teams into a more connected way of working.',
+                    'Automate the right steps while keeping people in control.',
+                    'Build a clearer foundation for reporting and decisions.',
+                    'Modernise at a pace that respects operational reality.',
+                    'Make relevant information easier to access and understand.',
+                    'Connect services with resilient, observable patterns.',
+                  ][index]}</p>
+                </div>
+                <ArrowDownRight size={17} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -200,9 +215,9 @@ export function HomePage() {
             <p>Automation, data and AI deliver most when they are tied to a specific business process. These are the three places engagements most often begin.</p>
           </div>
           <div className="solution-grid">
-            <article className="solution-card solution-card-blue"><span className="solution-index">01 / AUTOMATION</span><Workflow size={25} /><h3>Give good work room to flow.</h3><p>Connect process steps, reduce avoidable hand-offs and create a better experience for the people doing the work.</p><span className="solution-outcome"><Check size={14} />A more consistent process</span><Link to="/services/power-platform" aria-label="Explore intelligent automation" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
-            <article className="solution-card solution-card-light"><span className="solution-index">02 / DATA</span><LineChart size={25} /><h3>See the bigger picture.</h3><p>Bring trusted information together so teams can explore what is happening and make more informed decisions.</p><span className="solution-outcome"><Check size={14} />A clearer view of performance</span><Link to="/services/data-analytics" aria-label="Explore data and analytics" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
-            <article className="solution-card solution-card-white"><span className="solution-index">03 / AI</span><Bot size={25} /><h3>Make AI useful, responsibly.</h3><p>Start with a real business need, design appropriate controls and learn from a focused, human-centred use case.</p><span className="solution-outcome"><Check size={14} />A considered first step</span><Link to="/services/ai-copilot" aria-label="Explore AI and Copilot" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
+            <article className="solution-card solution-card-blue"><Workflow size={25} /><h3>Give good work room to flow.</h3><p>Connect process steps, reduce avoidable hand-offs and create a better experience for the people doing the work.</p><span className="solution-outcome"><Check size={14} />A more consistent process</span><Link to="/services/power-platform" aria-label="Explore intelligent automation" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
+            <article className="solution-card solution-card-light"><LineChart size={25} /><h3>See the bigger picture.</h3><p>Bring trusted information together so teams can explore what is happening and make more informed decisions.</p><span className="solution-outcome"><Check size={14} />A clearer view of performance</span><Link to="/services/data-analytics" aria-label="Explore data and analytics" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
+            <article className="solution-card solution-card-white"><Bot size={25} /><h3>Make AI useful, responsibly.</h3><p>Start with a real business need, design appropriate controls and learn from a focused, human-centred use case.</p><span className="solution-outcome"><Check size={14} />A considered first step</span><Link to="/services/ai-copilot" aria-label="Explore AI and Copilot" className="solution-arrow"><ArrowUpRight size={18} /></Link></article>
           </div>
         </div>
       </section>
