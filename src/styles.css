@@ -37,7 +37,11 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
 .site-header{height:76px;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);border-bottom:1px solid #e8edf2;backdrop-filter:blur(14px)}
 .header-inner{width:min(1320px,calc(100% - 56px));height:100%;margin:auto;display:flex;align-items:center;gap:28px;position:relative;z-index:42}
 .brand{display:inline-flex;align-items:center;gap:11px;flex-shrink:0}
-.brand-logo{width:32px;height:32px;display:block;flex-shrink:0}
+.brand-mark{width:29px;height:29px;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:3px;transform:skew(-24deg);flex-shrink:0}
+.brand-mark span{width:6px;background:#357df1;border-radius:1px}
+.brand-mark span:nth-child(1){height:15px;opacity:.65}
+.brand-mark span:nth-child(2){height:23px}
+.brand-mark span:nth-child(3){height:18px;opacity:.8}
 .brand-name{font-family:var(--serif);font-size:18px;font-weight:800;letter-spacing:-.055em;color:#1f5fc9;line-height:1}
 .brand-name span{font-weight:500;color:inherit}
 .primary-nav{height:100%;margin-left:auto;display:flex;align-items:center;gap:21px}
@@ -504,7 +508,7 @@ h1,h2,h3{font-family:var(--serif);letter-spacing:-.045em}
   .site-header{height:64px}
   .header-inner{width:calc(100% - 32px);gap:11px}
   .brand-name{font-size:17px}
-  .brand-logo{width:28px;height:28px}
+  .brand-mark{width:25px;height:26px}
   .mobile-menu-toggle{width:36px;height:36px}
   .primary-nav{top:64px;left:-16px;right:-16px;padding-inline:18px}
   .header-cta{min-height:36px;padding-inline:10px;font-size:11px;gap:6px}
